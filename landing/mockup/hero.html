@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KKAL 첫 화면 목업</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&display=swap">
+<style>
+/* Hero mockup. Two directions: ?v=a (product stage), ?v=b (clink demo, default). Tokens from DESIGN.md front matter. */
+@font-face{font-family:"Pretendard Variable";src:url("../assets/fonts/PretendardVariable.woff2") format("woff2-variations");font-weight:45 920;font-display:swap}
+:root{
+  color-scheme:light;
+  --canvas:#FBFBFB; --soft:#F0F2F1; --ink:#1D2624; --muted:#57625F; --on-dark:#FBFBFB; --hair:rgba(29,38,36,.12);
+  --soop:#265F56; --bam:#6F3C66; --noeul:#F15B5C; --yeoul:#9ED7E0; --deul:#F7F2C5;
+  --f-text:"Pretendard Variable",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-latin:"Unbounded","Pretendard Variable",-apple-system,sans-serif;
+  --r-card:24px; --r-pill:999px; --ease:cubic-bezier(.2,.7,.1,1);
+  --gut:48px;
+  word-break:keep-all; overflow-wrap:break-word;
+}
+@media (max-width:767px){:root{--gut:16px}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--canvas);color:var(--ink);font-family:var(--f-text);font-size:16px;line-height:1.6;letter-spacing:-.005em;font-weight:420;-webkit-font-smoothing:antialiased}
+h1,p{margin:0}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.wrap{max-width:calc(1200px + var(--gut)*2);margin:0 auto;padding:0 max(var(--gut),env(safe-area-inset-right)) 0 max(var(--gut),env(safe-area-inset-left))}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:5;background:var(--canvas)}
+.nav .wrap{display:flex;align-items:center;gap:36px;height:72px}
+.wm{font-family:var(--f-latin);font-weight:600;font-size:22px;letter-spacing:-.02em;text-decoration:none;color:inherit}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0 auto 0 0;padding:0}
+.nav ul a{font-family:var(--f-latin);font-size:13px;font-weight:500;letter-spacing:.02em;text-decoration:none;color:inherit}
+.nav ul a:hover{text-decoration:underline;text-underline-offset:6px}
+@media (max-width:767px){.nav ul{display:none}.nav .wrap{justify-content:space-between;height:64px}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 26px;border-radius:var(--r-pill);border:0;font:600 16px/1 var(--f-text);letter-spacing:-.01em;text-decoration:none;cursor:pointer;transition:transform .15s var(--ease),background .2s var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn-ink{background:var(--ink);color:var(--on-dark)}
+.btn-soft{background:var(--soft);color:var(--ink)}
+.btn-canvas{background:var(--canvas);color:var(--ink)}
+.btn-sm{height:44px;padding:0 20px;font-size:15px}
+.label{font-family:var(--f-latin);font-size:13px;font-weight:500;letter-spacing:.02em;display:inline-flex;align-items:center;height:30px;padding:0 14px;border-radius:var(--r-pill);background:var(--soft)}
+
+/* hero */
+.hero{padding:32px 0 96px}
+.hero .wrap{display:grid;grid-template-columns:7fr 5fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(40px,6.4vw,80px);line-height:1.08;letter-spacing:-.045em;font-weight:580;margin:24px 0 28px}
+.hero h1 span{display:block}
+.lead{font-size:clamp(17px,1.6vw,20px);line-height:1.55;letter-spacing:-.01em;max-width:30em}
+.lead span{display:block;text-wrap:balance}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+@media (max-width:1023px){.hero .wrap{grid-template-columns:1fr;gap:40px}}
+@media (max-width:767px){.hero{padding:16px 0 64px}.hero h1{margin:20px 0 20px}.cta{margin-top:28px}.cta .btn{flex:1 1 auto}}
+
+/* stage */
+.stage{position:relative;background:var(--soft);border-radius:var(--r-card);aspect-ratio:1/1;overflow:hidden;display:grid}
+.stage svg{width:100%;height:100%;display:block}
+@media (max-width:1023px){.stage{aspect-ratio:4/3;max-height:560px}}
+@media (max-width:767px){.stage{aspect-ratio:1/1}}
+
+/* direction A */
+.drop{animation:drop .9s var(--ease) both}
+@keyframes drop{from{transform:translateY(-28px)}to{transform:none}}
+
+/* direction B: clink demo */
+.cupL,.cupR{transform-box:fill-box;transform-origin:50% 100%;transition:transform .5s var(--ease)}
+.met .cupL{transform:translateX(14px) rotate(13deg)}
+.met .cupR{transform:translateX(-14px) rotate(-13deg)}
+.spark{opacity:0;transition:opacity .15s}
+.met .spark{opacity:1}
+.chips{position:absolute;left:0;right:0;bottom:92px;display:flex;justify-content:space-around;padding:0 8%;pointer-events:none}
+.chip{font-size:14px;font-weight:600;height:32px;display:inline-flex;align-items:center;gap:8px;padding:0 14px;border-radius:var(--r-pill);background:var(--canvas);transition:opacity .3s var(--ease)}
+.chip i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.chip.mixed{position:absolute;left:50%;transform:translateX(-50%);opacity:0}
+.met .chip.solo{opacity:0}
+.met .chip.mixed{opacity:1}
+.ctrl{position:absolute;left:0;right:0;bottom:24px;display:flex;justify-content:center}
+.ctrl .btn{min-width:132px;font-size:17px}
+.playing .bars{display:inline-flex}
+.bars{display:none;gap:3px;align-items:flex-end;height:14px}
+.bars i{width:3px;background:currentColor;border-radius:2px;animation:eq .6s ease-in-out infinite alternate}
+.bars i:nth-child(2){animation-delay:.15s}.bars i:nth-child(3){animation-delay:.3s}
+@keyframes eq{from{height:3px}to{height:14px}}
+@media (max-width:767px){.chips{bottom:84px}.chip{font-size:13px;height:30px}}
+
+.note{padding:0 0 48px}
+.note small{color:var(--muted);font-size:13px}
+.vA .only-b,.vB .only-a{display:none}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="wm" href="#top">KKAL</a>
+    <ul>
+      <li><a href="#how">How</a></li>
+      <li><a href="#gestures">Gestures</a></li>
+      <li><a href="#modules">Modules</a></li>
+    </ul>
+    <a class="btn btn-ink btn-sm" href="#waitlist">알림 신청</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="label">Social modular speaker</span>
+        <h1><span>잔을 부딪치면</span><span>음악이 섞입니다</span></h1>
+        <p class="lead"><span>KKAL은 바디 모듈과 잔 모듈로 이루어진 스피커입니다.</span> <span>음악을 만들어 본 적 없어도 친구와 잔을 쌓고 두드리면서 함께 곡을 바꿀 수 있습니다.</span></p>
+        <div class="cta">
+          <a class="btn btn-ink" href="#waitlist">출시 알림 받기</a>
+          <a class="btn btn-soft only-a" href="#gestures">몸짓 들어 보기</a>
+          <a class="btn btn-soft only-b" href="#gestures">다섯 가지 몸짓</a>
+        </div>
+      </div>
+
+      <div class="stage only-a" role="img" aria-label="바디 모듈 위에 잔 모듈 세 개가 쌓여 있고, 양옆에 잔 두 개가 놓인 그림" id="stageA"></div>
+
+      <div class="stage only-b" id="stageB">
+        <svg viewBox="0 0 480 480" aria-hidden="true" id="clinkSvg"></svg>
+        <div class="chips" aria-hidden="true">
+          <span class="chip solo"><i style="background:var(--noeul)"></i>내 곡</span>
+          <span class="chip solo"><i style="background:var(--yeoul)"></i>친구 곡</span>
+          <span class="chip mixed"><i style="background:var(--noeul)"></i><i style="background:var(--yeoul);margin-left:-6px"></i>한 곡으로 섞임</span>
+        </div>
+        <div class="ctrl">
+          <button class="btn btn-ink" type="button" id="clink" aria-describedby="clinkState">
+            <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="t">짠</span>
+          </button>
+        </div>
+        <p id="clinkState" class="sr" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">내 곡과 친구 곡이 따로 있습니다.</p>
+      </div>
+    </div>
+  </section>
+  <div class="note"><div class="wrap"><small>첫 화면 목업 v0.1. 그림은 실물 렌더가 나오기 전까지 쓰는 평면 SVG입니다.</small></div></div>
+</main>
+
+<script>
+const v=new URLSearchParams(location.search).get('v')==='a'?'A':'B';
+document.body.classList.add('v'+v);
+
+/* ---------- drawings (flat SVG placeholders for product renders) ---------- */
+const C={soop:'var(--soop)',bam:'var(--bam)',noeul:'var(--noeul)',yeoul:'var(--yeoul)',deul:'var(--deul)'};
+const mix=(c,p,w)=>`color-mix(in srgb, ${c} ${p}%, ${w})`;
+function cup(cx,y,w,h,c,cls='',st=''){
+  const ry=w*.15,l=cx-w/2,r=cx+w/2;
+  return `<g class="${cls}" style="${st}">
+  <path d="M${l},${y} C${l},${y+h*.95} ${cx-w*.2},${y+h} ${cx},${y+h} C${cx+w*.2},${y+h} ${r},${y+h*.95} ${r},${y} Z" fill="${c}"/>
+  <ellipse cx="${cx}" cy="${y}" rx="${w/2}" ry="${ry}" fill="${mix(c,72,'var(--ink)')}"/>
+  <ellipse cx="${cx}" cy="${y+ry*.18}" rx="${w/2-w*.07}" ry="${ry*.72}" fill="${mix(c,55,'var(--ink)')}"/>
+  <path d="M${l+w*.11},${y+h*.22} C${l+w*.12},${y+h*.55} ${l+w*.2},${y+h*.72} ${l+w*.28},${y+h*.8}" stroke="${mix(c,45,'var(--canvas)')}" stroke-width="${Math.max(3,w*.05)}" stroke-linecap="round" fill="none"/>
+  ${c===C.deul?`<path d="M${l},${y} C${l},${y+h*.95} ${cx-w*.2},${y+h} ${cx},${y+h} C${cx+w*.2},${y+h} ${r},${y+h*.95} ${r},${y}" fill="none" stroke="var(--hair)"/>`:''}
+  </g>`;
+}
+function body(cx,y,W,H,dots=['soop','bam','noeul','yeoul','deul']){
+  const ry=W*.13,l=cx-W/2,r=cx+W/2;let d='';
+  dots.forEach((k,i)=>{const n=dots.length,x=cx+(i-(n-1)/2)*W*.09;d+=`<circle cx="${x}" cy="${y+H*.62}" r="${W*.022}" fill="${C[k]}"/>`});
+  return `<path d="M${l},${y} L${l},${y+H} A${W/2},${ry} 0 0 0 ${r},${y+H} L${r},${y} Z" fill="var(--ink)"/>
+  <ellipse cx="${cx}" cy="${y}" rx="${W/2}" ry="${ry}" fill="${mix('var(--ink)',78,'var(--canvas)')}"/>
+  <ellipse cx="${cx}" cy="${y}" rx="${W/2-W*.1}" ry="${ry*.62}" fill="${mix('var(--ink)',90,'var(--canvas)')}"/>${d}`;
+}
+const floor=(cx,y,w)=>`<ellipse cx="${cx}" cy="${y}" rx="${w}" ry="${w*.12}" fill="var(--ink)" opacity=".07"/>`;
+
+if(v==='A'){
+  document.getElementById('stageA').innerHTML=`<svg viewBox="0 0 480 480" aria-hidden="true">
+  ${floor(240,402,170)}${body(240,312,300,84)}
+  ${cup(240,252,124,80,C.yeoul,'drop')}
+  ${cup(240,206,124,80,C.noeul,'drop','animation-delay:.12s')}
+  ${cup(240,160,124,80,C.deul,'drop','animation-delay:.24s')}
+  ${floor(66,434,40)}${cup(66,368,74,62,C.soop,'drop','animation-delay:.36s')}
+  ${floor(414,434,40)}${cup(414,368,74,62,C.bam,'drop','animation-delay:.48s')}
+  </svg>`;
+}else{
+  const spark=[[-28,-30,-14,-14],[0,-40,0,-20],[28,-30,14,-14]].map(([x1,y1,x2,y2])=>`<line x1="${240+x1}" y1="${140+y1}" x2="${240+x2}" y2="${140+y2}" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>`).join('');
+  document.getElementById('clinkSvg').innerHTML=`
+  ${floor(240,322,200)}
+  ${body(240,250,260,62)}
+  ${cup(140,150,124,126,C.noeul,'cupL')}
+  ${cup(340,150,124,126,C.yeoul,'cupR')}
+  <g class="spark">${spark}</g>`;
+}
+
+/* ---------- clink demo sound (Web Audio, user gesture only) ---------- */
+let ctx=null,master=null,busy=false;
+const hz=n=>440*Math.pow(2,(n-69)/12);
+function ac(){if(!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();}if(ctx.state==='suspended')ctx.resume();master=ctx.createGain();master.gain.value=.5;master.connect(ctx.destination);return ctx;}
+function tone(n,t,d,type,g,pan=0){const o=ctx.createOscillator(),a=ctx.createGain(),p=ctx.createStereoPanner?ctx.createStereoPanner():null;o.type=type;o.frequency.value=n>200?n:hz(n);a.gain.setValueAtTime(0,t);a.gain.linearRampToValueAtTime(g,t+.012);a.gain.exponentialRampToValueAtTime(.0008,t+d);if(p){p.pan.value=pan;o.connect(a).connect(p).connect(master);}else o.connect(a).connect(master);o.start(t);o.stop(t+d+.05);}
+function play(t){
+  // my phrase (left), friend phrase (right), clink, merged phrase (centre)
+  [72,74,76,79].forEach((n,i)=>tone(n,t+i*.2,.3,'triangle',.16,-.7));
+  [57,57,62,64].forEach((n,i)=>tone(n,t+.9+i*.2,.3,'square',.06,.7));
+  const k=t+1.8; tone(2093,k,.5,'sine',.12); tone(2637,k+.02,.6,'sine',.1);
+  const m=k+.35;
+  [[72,57],[74,57],[76,62],[79,64],[76,62],[74,57],[72,57]].forEach(([a,b],i)=>{tone(a,m+i*.22,.32,'triangle',.14,0);tone(b,m+i*.22,.32,'square',.05,0);});
+  [60,64,67,72].forEach(n=>tone(n,m+1.6,1.2,'triangle',.06,0));
+  return {clinkAt:1.8,dur:4.1};
+}
+const stage=document.getElementById('stageB'),btn=document.getElementById('clink'),lab=btn.querySelector('.t'),live=document.getElementById('clinkState');
+btn.addEventListener('click',()=>{
+  if(busy)return;
+  stage.classList.remove('met');
+  let r={clinkAt:0,dur:1};
+  try{ac();r=play(ctx.currentTime+.05);}catch(e){}
+  busy=true;btn.classList.add('playing');lab.textContent='듣는 중';
+  setTimeout(()=>{stage.classList.add('met');live.textContent='두 곡이 한 곡으로 섞였습니다.';},r.clinkAt*1000);
+  setTimeout(()=>{busy=false;btn.classList.remove('playing');lab.textContent='다시 짠';},r.dur*1000);
+});
+if(new URLSearchParams(location.search).has('met')) stage.classList.add('met');
+
+/* W-TYP-07: tie one-syllable Hangul words to the next word */
+const TIE=/(^|[\s\u00a0])([가-힣])[ ](?=\S)/g;
+(function tie(root=document.body){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);for(let n;(n=w.nextNode());){if(/^(SCRIPT|STYLE)$/.test(n.parentNode?.nodeName))continue;let t=n.nodeValue,prev;if(!/[가-힣] /.test(t))continue;do{prev=t;t=t.replace(TIE,"$1$2\u00a0");}while(t!==prev);if(t!==n.nodeValue)n.nodeValue=t;}})();
+</script>
+</body>
+</html>
